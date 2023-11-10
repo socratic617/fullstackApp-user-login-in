@@ -2,57 +2,287 @@
 <html>
 <head>
     <title>Cocktails </title>
-    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.2/css/bootstrap.min.css">
-    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css">
+    <!-- <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css"> -->
+
+      <!-- <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous"> -->
+      <!-- tailwind -->
+      <link href="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.0.0/flowbite.min.css" rel="stylesheet" />
+
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-<div class="container">
+  <div class="container">
 
+    <!-- PAGE  NAVIGATION BAR LIKE LOGOUT  -->
+    <nav class="bg-white dark:bg-gray-900 fixed w-full z-20 top-0 left-0 border-b border-gray-200 dark:border-gray-600">
+      <div class="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
+        <div class="flex md:order-2">
+          <a href="/logout" class="btn btn-default btn-sm">Logout</a>
+          <button data-collapse-toggle="navbar-sticky" type="button"
+            class="inline-flex items-center p-2 w-10 h-10 justify-center text-sm text-gray-500 rounded-lg md:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600"
+            aria-controls="navbar-sticky" aria-expanded="false">
+            <span class="sr-only">Open main menu</span>
+            <svg class="w-5 h-5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 17 14">
+              <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                d="M1 1h15M1 7h15M1 13h15" />
+            </svg>
+          </button>
+        </div>
+        <div class="items-center justify-between hidden w-full md:flex md:w-auto md:order-1" id="navbar-sticky">
+        </div>
+      </div>
+    </nav>
+
+
+    <!-- PAGE TITLE -->
     <div class="page-header text-center">
-        <h1><span class="fa fa-anchor"></span> Lets make some Cocktails . Call it tequila thearpy !</h1>
-        <a href="/logout" class="btn btn-default btn-sm">Logout</a>
+    
+      <h1
+        class="mb-4 text-4xl font-extrabold tracking-tight leading-none text-gray-900 md:text-5xl lg:text-6xl dark:text-white">
+        Lets make some Cocktails . Call it tequila thearpy !
+      </h1>
+    
     </div>
 
-    <div class="row">
 
-        <!-- LOCAL INFORMATION -->
- 
-        <div class="col-sm-6">
-          <h3>Cocktail Recipes</h3>
-          <ul class="recipes">
-          <% for(var i=0; i<recipes.length; i++) {%>
-            <li class="recipe">
-              <span><%= recipes[i].title %></span>
-              <span><%= recipes[i].spirit %></span>
-              <span><%= recipes[i].recipeContent %></span>
-              <span class="trash"> X </span>
+    <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
 
-            </li>
-          <% } %>
-          </ul>
+      <!-- COCKTAIL RECIPE ACTIONS SUCH AS CREATE, FILTER, ETC -->
+      <div class="flex items-center justify-between py-4 bg-white dark:bg-gray-800">
+        <div>
 
-          <h2>Add a Cocktail Recipe</h2>
-        <% if (user.local.email) { %>
-          <form action="/recipes" method="POST">
-            <input type="text" placeholder="Name Of Cocktail Recipe" name="title">
-            <select name="spirit" id="spirits">
-              <option>Bourbon/Rye</option>
-              <option>Tequila</option>
-              <option>Gin</option>
-              <option>Rum</option>
-              <option>Vodka</option>
-            </select>
-            <textarea type="text" name="recipeContent" placeholder="Enter your Recipe Here"></textarea>
+          <button type="button" id="create"
+            class="focus:outline-none text-white bg-purple-700 hover:bg-purple-800 focus:ring-4 focus:ring-purple-300 font-medium rounded-lg text-sm px-5 py-2.5 mb-2 dark:bg-purple-600 dark:hover:bg-purple-700 dark:focus:ring-purple-900" data-modal-target="static-modal" data-modal-toggle="static-modal" >Create Cocktail</button>
 
-            <button type="submit">Submit</button>
-          </form>
+            <button id="dropdownActionButton" data-dropdown-toggle="dropdownAction"
+              class="inline-flex items-center text-gray-500 bg-white border border-gray-300 focus:outline-none hover:bg-gray-100 focus:ring-4 focus:ring-gray-200 font-medium rounded-lg text-sm px-3 py-1.5 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:bg-gray-700 dark:hover:border-gray-600 dark:focus:ring-gray-700"
+              type="button">
+              <span class="sr-only">Action button</span>
+              Action
+              <svg class="w-2.5 h-2.5 ml-2.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none"
+                viewBox="0 0 10 6">
+                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                  d="m1 1 4 4 4-4" />
+              </svg>
+            </button>
+            <!-- Dropdown menu -->
+            <div id="dropdownAction"
+              class="z-10 hidden bg-white divide-y divide-gray-100 rounded-lg shadow w-44 dark:bg-gray-700 dark:divide-gray-600">
+              <ul class="py-1 text-sm text-gray-700 dark:text-gray-200" aria-labelledby="dropdownActionButton">
+                <li>
+                  <a href="#"
+                    class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Reward</a>
+                </li>
+                <li>
+                  <a href="#"
+                    class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Promote</a>
+                </li>
+                <li>
+                  <a href="#" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Activate
+                    account</a>
+                </li>
+              </ul>
+              <div class="py-1">
+                <a href="#"
+                  class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">Delete
+                  User</a>
+              </div>
+            </div>
+
+        </div>
+
+      </div>
+
+      <!-- LIST OF CREATED COCKTAIL RECIPES APPEAR HERE -->
+      <div class="grid grid-cols-2 md:grid-cols-3 gap-4">
+      <% for(var i=0; i<recipes.length; i++) {%>
+        <div class="max-w-sm bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700" >
+          <a href="#">
+            <img class="rounded-t-lg" src="<%= recipes[i].image %>" alt="" />
+          </a>
+      
+          <!-- TAG ADDED FOR DIFF TYPES OF SPIRIT FOR EACH RECIPE -->
+          <!-- credit: https://stackoverflow.com/questions/63633427/switch-condition-statement-semicolon-error-inside-ejs-template -->
+          <% switch(recipes[i].spirit) { 
+            case 'Whiskey' : %>
+              <span
+                class="bg-green-100 text-green-800 text-xs font-medium mr-2 px-2.5 py-0.5 rounded dark:bg-green-900 dark:text-green-300">Whiskey</span>
+              <% break; 
+            case 'Tequila' : %>
+              <span
+                class="bg-purple-100 text-purple-800 text-xs font-medium mr-2 px-2.5 py-0.5 rounded dark:bg-purple-900 dark:text-purple-300">Tequila</span>
+              <% break; 
+            case 'Rum' : %>
+              <span
+                class="bg-blue-100 text-blue-800 text-xs font-medium mr-2 px-2.5 py-0.5 rounded dark:bg-blue-900 dark:text-blue-300">Rum</span>
+              <% break; 
+            case 'Vodka' : %>
+              <span
+                class="bg-gray-100 text-gray-800 text-xs font-medium mr-2 px-2.5 py-0.5 rounded dark:bg-gray-700 dark:text-gray-300">Vodka</span>
+              <% break; 
+            case 'Gin' : %>
+              <span
+                class="bg-pink-100 text-pink-800 text-xs font-medium mr-2 px-2.5 py-0.5 rounded dark:bg-pink-900 dark:text-pink-300">Gin</span>
+              <% break; 
+          } %>
+
+          <div class="flex items-center">
+            <svg class="favorite w-4 h-4 text-yellow-300 mr-1" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor"
+              viewBox="0 0 22 20">
+              <path
+                d="M20.924 7.625a1.523 1.523 0 0 0-1.238-1.044l-5.051-.734-2.259-4.577a1.534 1.534 0 0 0-2.752 0L7.365 5.847l-5.051.734A1.535 1.535 0 0 0 1.463 9.2l3.656 3.563-.863 5.031a1.532 1.532 0 0 0 2.226 1.616L11 17.033l4.518 2.375a1.534 1.534 0 0 0 2.226-1.617l-.863-5.03L20.537 9.2a1.523 1.523 0 0 0 .387-1.575Z" />
+            </svg>
+            <p class="ml-2 text-sm font-bold text-gray-900 dark:text-white">
+               <%= Object.keys(recipes[i].reactions).length %>
+            </p>
+           
+           
+          </div>
+
+
+
+          <div class="p-5">
+            <a href="#">
+              <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
+                <%= recipes[i].title %>
+              </h5>
+            </a>
+            <p class="mb-3 font-normal text-gray-700 dark:text-gray-400">
+              <%= recipes[i].recipeContent %>
+            </p>
+            
+            
+            <!-- If you are comparing mongoDB objectId, then use toString(). -->
+            <!-- credit : https://stackoverflow.com/questions/57661892/ejs-comparison-between-two-same-strings -->
+            <% if(recipes[i].creatorId.toString() == user._id.toString()) { %>
+              <a href="#"
+                class="inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 trash" id="<%= recipes[i]._id %>">
+                Delete
+              </a>
+              <% } %>
+
+          </div>
         </div>
         <% } %>
+      </div>
 
-</div>
+    </div>
 
-<script src="main.js"></script>
+
+
+      <!-- Main modal -->
+    <div id="static-modal" data-modal-backdrop="static" tabindex="-1" aria-hidden="true"
+      class="fixed top-0 left-0 right-0 z-50 hidden w-full p-4 overflow-x-hidden overflow-y-auto md:inset-0 h-[calc(100%-1rem)] max-h-full">
+      <div class="relative w-full max-w-2xl max-h-full">
+        <!-- Modal content -->
+        <div class="relative bg-white rounded-lg shadow dark:bg-gray-700">
+          <!-- Modal header -->
+          <div class="flex items-start justify-between p-4 border-b rounded-t dark:border-gray-600">
+            <h3 class="text-xl font-semibold text-gray-900 dark:text-white">
+              Create your Cocktail 📋
+            </h3>
+            <button type="button"
+              class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ml-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white"
+              data-modal-hide="static-modal">
+              <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">
+                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                  d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6" />
+              </svg>
+              <span class="sr-only">Close modal</span>
+            </button>
+          </div>
+
+        
+
+
+          <!-- Modal body -->
+    
+          <section class="bg-white dark:bg-gray-900">
+            <div class="py-8 px-4 mx-auto max-w-2xl lg:py-16">
+
+              <form action="/recipes" method="POST">
+                <div class="grid gap-4 sm:grid-cols-2 sm:gap-6">
+                  <div class="sm:col-span-2">
+                    <label for="title" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Cocktail Recipe
+                      </label>
+                    <input type="text" placeholder="Name Of Cocktail Recipe" name="title" id="modal-title"
+                      class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                      placeholder="Type product name" required="">
+                  </div>
+
+                  <div>
+                    <label for="spirits" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Select your Spirit</label>
+                    <select name="spirit" id="spirits"
+                      class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                      <option>Tequila</option>
+                      <option>Gin</option>
+                      <option>Rum</option>
+                      <option>Vodka</option>
+                      <option>Whiskey</option>
+                    </select>
+                  </div>
+                  
+
+
+    
+                  <div>
+                    <label for="image" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
+                      Image for your Cocktail
+                    </label>
+                    <input type="text" name="image" id="modal-image"
+                      class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                      placeholder="https://imageURL.com/" required="">
+                  </div>
+                  <!-- key "name = "id" sent to serve  & added type=hidden to hide it in the DOM -->
+                  <input type="hidden" id="creatorId" name="creatorId" value="<%= user._id %>" />
+                  <div class="sm:col-span-2">
+                    <label for="description"
+                      class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Description</label>
+                    <textarea id="modal-description"  rows="8"
+                      class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-primary-500 focus:border-primary-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                      name="recipeContent" placeholder="Enter your Recipe Here"></textarea>
+                  </div>
+
+                </div>
+
+
+                
+                <!-- Modal footer -->
+                <div class="flex items-center p-6 space-x-2 border-t border-gray-200 rounded-b dark:border-gray-600">
+                  <button data-modal-hide="static-modal" type="submit" id="updatebtn"
+                    class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+                    🥂Craft Cocktail 🍾🍹</button>
+                </div>
+                <!-- bootstrap button -->
+                <!-- <button type="submit" class="btn btn-outline-primary">POST BLOG</button> -->
+              </form>
+            </div>
+          </section>
+    
+    
+        </div>
+      </div>
+    </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+ 
+
+  <script src="main.js"></script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.0.0/flowbite.min.js"></script>
 
 </body>
 </html>

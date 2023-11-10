@@ -1,4 +1,6 @@
 module.exports = function(app, passport, db) {
+  
+  const {ObjectId} = require('mongodb');//my string recipe ID(from monogoDB) needs to be converted into an object aka "{ObjectId}""
 
 // normal routes ===============================================================
 
@@ -29,7 +31,18 @@ module.exports = function(app, passport, db) {
 // message board routes ===============================================================
 
     app.post('/recipes', (req, res) => {
-      db.collection('recipes').save({title: req.body.title, recipeContent: req.body.recipeContent, spirit: req.body.spirit}, (err, result) => {
+      console.log('POST ENDPOINT TRIGGERED')
+      console.log(req.body)
+      db.collection('recipes').save(
+        {
+          title: req.body.title, 
+          recipeContent: req.body.recipeContent, 
+          spirit: req.body.spirit, 
+          image: req.body.image, 
+          creatorId: ObjectId(req.body.creatorId),
+          reactions:{}
+        }, 
+        (err, result) => {
         if (err) return console.log(err)
         console.log('saved to database')
         res.redirect('/profile')
@@ -37,41 +50,43 @@ module.exports = function(app, passport, db) {
     })
 
     app.put('/recipes', (req, res) => {
-
-      let startCounterThumbUp = 0;
-
+  
       console.log(" (put method) : ")
       console.log(req.body)
-      if(req.body.thumbUp !== undefined){
-      console.log("thumb up selected")
-      startCounterThumbUp  = req.body.thumbUp == null ? 0 : req.body.thumbUp + 1;//ternary deals with like to handle "NaN" aka null in JS deal with it by adding 1 to it or setting the new list item to 0
+
+  //     let startCounterThumbUp = 0;
+
+
+  //     if(req.body.thumbUp !== undefined){
+  //     console.log("thumb up selected")
+  //     startCounterThumbUp  = req.body.thumbUp == null ? 0 : req.body.thumbUp + 1;//ternary deals with like to handle "NaN" aka null in JS deal with it by adding 1 to it or setting the new list item to 0
     
-    } else if(req.body.thumbDown !== undefined ){
+  //   } else if(req.body.thumbDown !== undefined ){
 
-      console.log("thumb down(before): " + req.body.thumbDown)
-      startCounterThumbUp = req.body.thumbDown == null ? 0 : req.body.thumbDown - 1;
-      console.log("thumb down(after): " + startCounterThumbUp)
+  //     console.log("thumb down(before): " + req.body.thumbDown)
+  //     startCounterThumbUp = req.body.thumbDown == null ? 0 : req.body.thumbDown - 1;
+  //     console.log("thumb down(after): " + startCounterThumbUp)
 
-   //ternary deals with dislike to handle "NaN" aka null in JS deal with it by subtract 1 to it or setting the new list item to 0
-      console.log("user selected thumb down");
-    }
-      db.collection('recipes')
-      .findOneAndUpdate({name: req.body.name, msg: req.body.msg}, {
-        $set: {
-          thumbUp:startCounterThumbUp,
-        }
-      }, {
-        sort: {_id: -1},
-        upsert: true
-      }, (err, result) => {
-        if (err) return res.send(err)
-        res.send(result)
-      })
+  //  //ternary deals with dislike to handle "NaN" aka null in JS deal with it by subtract 1 to it or setting the new list item to 0
+  //     console.log("user selected thumb down");
+  //   }
+  //     db.collection('recipes')
+  //     .findOneAndUpdate({name: req.body.name, msg: req.body.msg}, {
+  //       $set: {
+  //         thumbUp:startCounterThumbUp,
+  //       }
+  //     }, {
+  //       sort: {_id: -1},
+  //       upsert: true
+  //     }, (err, result) => {
+  //       if (err) return res.send(err)
+  //       res.send(result)
+  //     })
     })
 
     app.delete('/recipes', (req, res) => {
       console.log("delete method" , req.body)
-      db.collection('recipes').findOneAndDelete({title: req.body.title, spirit: req.body.spirit, recipeContent: req.body.recipeContent}, (err, result) => {
+      db.collection('recipes').findOneAndDelete({_id: ObjectId(req.body.id)}, (err, result) => {
         if (err) return res.send(500, err)
         res.send('Recipe deleted!')
       })
