@@ -1,0 +1,58 @@
+<!doctype html>
+<html>
+<head>
+    <title>Cocktails </title>
+    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div class="container">
+
+    <div class="page-header text-center">
+        <h1><span class="fa fa-anchor"></span> Lets make some Cocktails . Call it tequila thearpy !</h1>
+        <a href="/logout" class="btn btn-default btn-sm">Logout</a>
+    </div>
+
+    <div class="row">
+
+        <!-- LOCAL INFORMATION -->
+ 
+        <div class="col-sm-6">
+          <h3>Cocktail Recipes</h3>
+          <ul class="recipes">
+          <% for(var i=0; i<recipes.length; i++) {%>
+            <li class="recipe">
+              <span><%= recipes[i].title %></span>
+              <span><%= recipes[i].spirit %></span>
+              <span><%= recipes[i].recipeContent %></span>
+              <span class="trash"> X </span>
+
+            </li>
+          <% } %>
+          </ul>
+
+          <h2>Add a Cocktail Recipe</h2>
+        <% if (user.local.email) { %>
+          <form action="/recipes" method="POST">
+            <input type="text" placeholder="Name Of Cocktail Recipe" name="title">
+            <select name="spirit" id="spirits">
+              <option>Bourbon/Rye</option>
+              <option>Tequila</option>
+              <option>Gin</option>
+              <option>Rum</option>
+              <option>Vodka</option>
+            </select>
+            <textarea type="text" name="recipeContent" placeholder="Enter your Recipe Here"></textarea>
+
+            <button type="submit">Submit</button>
+          </form>
+        </div>
+        <% } %>
+
+</div>
+
+<script src="main.js"></script>
+
+</body>
+</html>
