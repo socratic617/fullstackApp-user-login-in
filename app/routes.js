@@ -49,7 +49,7 @@ module.exports = function(app, passport, db) {
       })
     })
 
-    app.put('/recipes', async (req, res) => {
+    app.put('/recipes', (req, res) => {
   
       console.log(" (put method) : ")
       console.log(req.body)
@@ -89,38 +89,7 @@ module.exports = function(app, passport, db) {
             if (err) return res.send(err)
             res.send(result)
           })
-
-
         })
-
-  //     let startCounterThumbUp = 0;
-
-
-  //     if(req.body.thumbUp !== undefined){
-  //     console.log("thumb up selected")
-  //     startCounterThumbUp  = req.body.thumbUp == null ? 0 : req.body.thumbUp + 1;//ternary deals with like to handle "NaN" aka null in JS deal with it by adding 1 to it or setting the new list item to 0
-    
-  //   } else if(req.body.thumbDown !== undefined ){
-
-  //     console.log("thumb down(before): " + req.body.thumbDown)
-  //     startCounterThumbUp = req.body.thumbDown == null ? 0 : req.body.thumbDown - 1;
-  //     console.log("thumb down(after): " + startCounterThumbUp)
-
-  //  //ternary deals with dislike to handle "NaN" aka null in JS deal with it by subtract 1 to it or setting the new list item to 0
-  //     console.log("user selected thumb down");
-  //   }
-  //     db.collection('recipes')
-  //     .findOneAndUpdate({name: req.body.name, msg: req.body.msg}, {
-  //       $set: {
-  //         thumbUp:startCounterThumbUp,
-  //       }
-  //     }, {
-  //       sort: {_id: -1},
-  //       upsert: true
-  //     }, (err, result) => {
-  //       if (err) return res.send(err)
-  //       res.send(result)
-  //     })
     })
 
     app.delete('/recipes', (req, res) => {
