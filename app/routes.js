@@ -49,10 +49,49 @@ module.exports = function(app, passport, db) {
       })
     })
 
-    app.put('/recipes', (req, res) => {
+    app.put('/recipes', async (req, res) => {
   
       console.log(" (put method) : ")
       console.log(req.body)
+
+      //  variable 'starredRecipe' is assigned once  it locates object id from the user post in our database, and if it does find it, it will return
+      //  and assign that star to the recipe 
+
+
+      db.collection('recipes')
+      .find({_id: ObjectId(req.body.id)})
+      .toArray((err, result) => {
+          if (err) return console.log(err)
+          console.log("result : ", result)
+
+          console.log(result[0].reactions[req.body.loggedInUserId])
+
+          if(result[0].reactions[req.body.loggedInUserId] !== undefined){
+            console.log('i need to remove the user id  ')
+            delete result[0].reactions[req.body.loggedInUserId]; //credit: https://stackoverflow.com/questions/3455405/how-do-i-remove-a-key-from-a-javascript-object
+            //im removing the star if I dont want to star it 
+
+          }
+          else{
+            console.log('i need to add user id  ')
+            result[0].reactions[req.body.loggedInUserId] = true; //this is how im adding star fav to post 
+            console.log(result[0].reactions)
+          }
+          db.collection('recipes')
+          .findOneAndUpdate({_id: ObjectId(req.body.id)}, {
+            $set: {
+              reactions: result[0].reactions,
+            }
+          }, {
+            sort: {_id: -1},
+            upsert: true
+          }, (err, result) => {
+            if (err) return res.send(err)
+            res.send(result)
+          })
+
+
+        })
 
   //     let startCounterThumbUp = 0;
 
