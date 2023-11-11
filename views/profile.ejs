@@ -67,6 +67,7 @@
       <% for(var i=0; i<recipes.length; i++) {%>
         <div class="max-w-sm bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700" >
           <a href="#">
+            <!-- CREATING NEW IMAGE FOR EACH CARD -->
             <img class="rounded-t-lg" src="<%= recipes[i].image %>" alt="" />
           </a>
       
@@ -133,7 +134,6 @@
               <%= recipes[i].recipeContent %>
             </p>
             
-            <!-- <p <input type="hidden" id="creatorId" name="creatorId" value="<%= user._id %>" />recipes[i].reactions></p> -->
 
             <!-- If you are comparing mongoDB objectId, then use toString(). -->
             <!-- credit : https://stackoverflow.com/questions/57661892/ejs-comparison-between-two-same-strings -->
@@ -142,7 +142,7 @@
                 class="inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 trash" id="<%= recipes[i]._id %>">
                 Delete
               </a>
-              <% } %>
+            <% } %>
 
           </div>
         </div>
