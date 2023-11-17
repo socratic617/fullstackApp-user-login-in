@@ -14,7 +14,7 @@ Array.from(favorite).forEach(function(element) {
       console.log('FAVORITE UPDATE : ')
       console.log("this.id : " , this.id )
       console.log("before my fetch loggedInUserId :")
-      console.log( document.querySelector('#loggedInUserId'))
+      console.log( document.querySelector('.loggedInUserId'))
       fetch('recipes', {
         method: 'put',
         headers: {
@@ -22,7 +22,7 @@ Array.from(favorite).forEach(function(element) {
         },
         body: JSON.stringify({
           id: this.id, //this(button) is what got triggered
-          loggedInUserId: document.querySelector('#loggedInUserId').innerText
+          loggedInUserId: document.querySelector('.loggedInUserId').id
         })
       }).then(function (response) {
         window.location.reload()

@@ -2,11 +2,8 @@
 <html>
 <head>
     <title>Cocktails Enthusiast</title>
-    <!-- <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.2/css/bootstrap.min.css">
-    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css"> -->
 
-      <!-- <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
-        integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous"> -->
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.1/css/all.css">
       <!-- tailwind -->
       <link href="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.0.0/flowbite.min.css" rel="stylesheet" />
 
@@ -14,7 +11,8 @@
 </head>
 <body>
   <div class="container">
-    <div display="hidden" id="loggedInUserId"> <%= user._id %> </div>
+  
+    <div display="hidden" class="loggedInUserId" id="<%= user._id %>">  </div>
 
     <!-- PAGE  NAVIGATION BAR LIKE LOGOUT  -->
     <nav class="bg-white dark:bg-gray-900 fixed w-full z-20 top-0 left-0 border-b border-gray-200 dark:border-gray-600">
@@ -63,65 +61,59 @@
       </div>
 
       <!-- LIST OF CREATED COCKTAIL RECIPES APPEAR HERE -->
-      <div class="grid grid-cols-2 md:grid-cols-3 gap-4">
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
       <% for(var i=0; i<recipes.length; i++) {%>
         <div class="max-w-sm bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700" >
           <a href="#">
             <!-- CREATING NEW IMAGE FOR EACH CARD -->
             <img class="rounded-t-lg" src="<%= recipes[i].image %>" alt="" />
           </a>
-      
-          <!-- TAG ADDED FOR DIFF TYPES OF SPIRIT FOR EACH RECIPE -->
-          <!-- credit: https://stackoverflow.com/questions/63633427/switch-condition-statement-semicolon-error-inside-ejs-template -->
-          <% switch(recipes[i].spirit) { 
-            case 'Whiskey' : %>
-              <span
-                class="bg-green-100 text-green-800 text-xs font-medium mr-2 px-2.5 py-0.5 rounded dark:bg-green-900 dark:text-green-300">Whiskey</span>
-              <% break; 
-            case 'Tequila' : %>
-              <span
-                class="bg-purple-100 text-purple-800 text-xs font-medium mr-2 px-2.5 py-0.5 rounded dark:bg-purple-900 dark:text-purple-300">Tequila</span>
-              <% break; 
-            case 'Rum' : %>
-              <span
-                class="bg-blue-100 text-blue-800 text-xs font-medium mr-2 px-2.5 py-0.5 rounded dark:bg-blue-900 dark:text-blue-300">Rum</span>
-              <% break; 
-            case 'Vodka' : %>
-              <span
-                class="bg-gray-100 text-gray-800 text-xs font-medium mr-2 px-2.5 py-0.5 rounded dark:bg-gray-700 dark:text-gray-300">Vodka</span>
-              <% break; 
-            case 'Gin' : %>
-              <span
-                class="bg-pink-100 text-pink-800 text-xs font-medium mr-2 px-2.5 py-0.5 rounded dark:bg-pink-900 dark:text-pink-300">Gin</span>
-              <% break; 
-          } %>
 
-          <div class="flex items-center">
-            <!-- THIS IS WHERE I HAVE STARRED FAVORITES AND UNSTARRED FAVORITES -->
-          <% if(recipes[i].reactions[user._id] !== undefined){ %>
-            <svg class="favorite w-4 h-4 text-yellow-300 mr-1" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
-              fill="currentColor" viewBox="0 0 22 20" id="<%= recipes[i]._id %>">
-              <path
-                d="M20.924 7.625a1.523 1.523 0 0 0-1.238-1.044l-5.051-.734-2.259-4.577a1.534 1.534 0 0 0-2.752 0L7.365 5.847l-5.051.734A1.535 1.535 0 0 0 1.463 9.2l3.656 3.563-.863 5.031a1.532 1.532 0 0 0 2.226 1.616L11 17.033l4.518 2.375a1.534 1.534 0 0 0 2.226-1.617l-.863-5.03L20.537 9.2a1.523 1.523 0 0 0 .387-1.575Z" />
-            </svg>
-          <% } else{ %>
-            <svg class="favorite w-4 h-4 text-gray-300 mr-1 dark:text-gray-500" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 22 20" id="<%= recipes[i]._id %>">
-              <path d="M20.924 7.625a1.523 1.523 0 0 0-1.238-1.044l-5.051-.734-2.259-4.577a1.534 1.534 0 0 0-2.752 0L7.365 5.847l-5.051.734A1.535 1.535 0 0 0 1.463 9.2l3.656 3.563-.863 5.031a1.532 1.532 0 0 0 2.226 1.616L11 17.033l4.518 2.375a1.534 1.534 0 0 0 2.226-1.617l-.863-5.03L20.537 9.2a1.523 1.523 0 0 0 .387-1.575Z" />
-            </svg>
-          <% } %>
+          <div class="grid grid-cols-2 gap-4 mt-4 ">
+            <div class="ml-4">
+                  <!-- TAG ADDED FOR DIFF TYPES OF SPIRIT FOR EACH RECIPE -->
+              <!-- credit: https://stackoverflow.com/questions/63633427/switch-condition-statement-semicolon-error-inside-ejs-template -->
+              <% switch(recipes[i].spirit) { 
+                case 'Whiskey' : %>
+                  <span
+                    class="ml-4 bg-green-100 text-green-800 text-xs font-medium mr-2 px-2.5 py-0.5 rounded dark:bg-green-900 dark:text-green-300">Whiskey</span>
+                  <% break; 
+                case 'Tequila' : %>
+                  <span
+                    class="ml-4 bg-purple-100 text-purple-800 text-xs font-medium mr-2 px-2.5 py-0.5 rounded dark:bg-purple-900 dark:text-purple-300">Tequila</span>
+                  <% break; 
+                case 'Rum' : %>
+                  <span
+                    class="ml-4 bg-blue-100 text-blue-800 text-xs font-medium mr-2 px-2.5 py-0.5 rounded dark:bg-blue-900 dark:text-blue-300">Rum</span>
+                  <% break; 
+                case 'Vodka' : %>
+                  <span
+                    class="ml-4 bg-gray-100 text-gray-800 text-xs font-medium mr-2 px-2.5 py-0.5 rounded dark:bg-gray-700 dark:text-gray-300">Vodka</span>
+                  <% break; 
+                case 'Gin' : %>
+                  <span
+                    class="ml-4 bg-pink-100 text-pink-800 text-xs font-medium mr-2 px-2.5 py-0.5 rounded dark:bg-pink-900 dark:text-pink-300">Gin</span>
+                  <% break; 
+              } %>
+            </div>
+            <div class="text-right mr-4">
+              <div class="ml-4 flex items-center">
+            
+                  <!-- THIS IS WHERE I HAVE STARRED FAVORITES AND UNSTARRED FAVORITES -->
+                <% if(recipes[i].reactions[user._id] !== undefined){ %>
+                  <i class="favorite fas fa-heart" style="color: #db0000;" id="<%= recipes[i]._id %>"></i>
+                <% } else{ %>
+                  <i class="favorite fas fa-heart" style="color:#585555;" id="<%= recipes[i]._id %>"></i>
+                <% } %>
 
-
-
-
-            <!-- turning user ids to an array using recipes[i] and using .length method to get all user ids -->
-            <p class="ml-2 text-sm font-bold text-gray-900 dark:text-white">
-               <%= Object.keys(recipes[i].reactions).length %>
-            </p>
-
-           
-           
+                <!-- turning user ids to an array using recipes[i] and using .length method to get all user ids -->
+                <p class="ml-2 text-sm font-bold text-gray-900 dark:text-white">
+                  <%= Object.keys(recipes[i].reactions).length %>
+                </p>
+            
+              </div>
+            </div>
           </div>
-
 
 
           <div class="p-5">
