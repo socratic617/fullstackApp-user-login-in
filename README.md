@@ -6,7 +6,7 @@ Dive into the art of mixology by creating, sharing and favoriting your cocktail 
 
 ## Tech Stack
 
-**Client:** EJS, Javascrip, Flowbite,TailwindCSS, FontAwesome, HTML/CSS
+**Client:** EJS, Javascript, Flowbite,TailwindCSS, FontAwesome, HTML/CSS
 
 **Server:** Node, Express, Passport, Mongoose, MongoDB
 
