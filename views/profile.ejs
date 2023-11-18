@@ -101,9 +101,9 @@
             
                   <!-- THIS IS WHERE I HAVE STARRED FAVORITES AND UNSTARRED FAVORITES -->
                 <% if(recipes[i].reactions[user._id] !== undefined){ %>
-                  <i class="favorite fas fa-heart" style="color: #db0000;" id="<%= recipes[i]._id %>"></i>
+                  <i class="pointer favorite fas fa-heart" style="color: #db0000;" id="<%= recipes[i]._id %>"></i>
                 <% } else{ %>
-                  <i class="favorite fas fa-heart" style="color:#585555;" id="<%= recipes[i]._id %>"></i>
+                  <i class="pointer favorite fas fa-heart" style="color:#585555;" id="<%= recipes[i]._id %>"></i>
                 <% } %>
 
                 <!-- turning user ids to an array using recipes[i] and using .length method to get all user ids -->
