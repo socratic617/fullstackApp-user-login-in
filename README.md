@@ -55,5 +55,11 @@ Start the server
 
 ## Lessons Learned
 
-What did you learn while building this project? What challenges did you face and how did you overcome them?
+Something new I learned was how to add a favorite feature where instead of allowing the and showing the user which recipes they had favorited. I had to add a reactions property that would store the information on who has favorited this recipe.
+
+I learned how to use EJS switch and if/else to add different tags to my recipes depending on the recipes.
+
+I needed to learn how to use user authentication to allow my user to login in and sign out of my site.
+
+I used some more advanced tailwind/flowbite templates to such as modals and a grid to improve the appearance of my site.
 
