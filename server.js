@@ -4,6 +4,7 @@
 // get all the tools we need
 var express  = require('express');
 var app      = express();
+require('dotenv').config();
 var port     = process.env.PORT || 8080;//"process.env" look for an open port to use 
 const MongoClient = require('mongodb').MongoClient //"MongoClient " allows for making connections to MongoDB
 var mongoose = require('mongoose'); // a package giving a consistent language so that anyone on project knows how to talk to database.  importing the Mongoose library into your code. to talk to mongo database
