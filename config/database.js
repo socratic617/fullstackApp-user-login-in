@@ -1,6 +1,6 @@
 // config/database.js
 module.exports = {
 
-    'url': PROCESS.ENV.MONGO_DB, 
+    'url': process.env.MONGO_DB, 
     'dbName': 'cocktails'
 };
